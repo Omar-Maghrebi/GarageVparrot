@@ -1,32 +1,34 @@
-
 <?php
-
 
 require_once "connection_bd.php";
 
-
-
-// Gestion de la requete POST
+// Gestion de la requête POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Association des données a leurs types appropriée 
+    // Valider et filtrer les entrées utilisateur
+    $name = htmlspecialchars($_POST['name']);
+    $text = htmlspecialchars($_POST['text']);
+    $rating = isset($_POST['rating']) ? intval($_POST['rating']) : 0;
 
-    $name = $_POST['name'];
-    $text = $_POST['text'];
-    $rating = $_POST['rating'];
-   
+    // Vérifier les champs vides ou invalides
+    if (empty($name) || empty($text) || $rating < 1 || $rating > 5) {
+        echo "Saisie invalide. Veuillez remplir correctement tous les champs.";
+        exit;
+    }
 
-    // Inserttion des données dans la base de données
-    $sql = "INSERT INTO avis (name, text, rating) VALUES ('$name', '$text', '$rating')";
-    $result = mysqli_query($conn, $sql);
+    // Préparer et exécuter la requête SQL
+    $stmt = $conn->prepare("INSERT INTO avis (name, text, rating) VALUES (?, ?, ?)");
+    $stmt->bind_param("ssi", $name, $text, $rating);
+
+    $result = $stmt->execute();
 
     if ($result) {
-        // insertion des données avec succès
+        // Insertion réussie
         header('Location: index.php');
         exit;
     } else {
-        // insertion des données échoué
-        echo "Error adding item: " . mysqli_error($conn);
-        header('Location: index.php');
+        // Échec de l'insertion
+        echo "Une erreur s'est produite. Veuillez réessayer ultérieurement.";
+        error_log("Erreur lors de l'ajout : " . $stmt->error);
         exit;
     }
 }

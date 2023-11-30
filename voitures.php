@@ -1,31 +1,38 @@
 <?php
+
 require_once "connection_bd.php";
 
-$result = mysqli_query($conn, $sql);
-
-// Gestion de la requete POST
+// Gestion de la requête POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      
-      $model = $_POST['model'];
-      $date = $_POST['date'];
-      $distance = $_POST['distance'];
-      $price = $_POST['price'];
-      $imageurl = $_POST['imageurl'];
+    // Valider et filtrer les entrées utilisateur
+    $model = htmlspecialchars($_POST['model']);
+    $date = htmlspecialchars($_POST['date']);
+    $distance = intval($_POST['distance']); // Assurez-vous que la distance est un nombre entier
+    $price = floatval($_POST['price']); // Assurez-vous que le prix est un nombre décimal
+    $imageurl = htmlspecialchars($_POST['imageurl']);
 
-
-      // Insertion dans la base de données
-      $sql = "INSERT INTO cars (model, date, distance, price, imageurl) VALUES ('$model', '$date', '$distance', '$price', '$imageurl')";
-      $result = mysqli_query($conn, $sql);
-
-      if ($result) {
-            // succées
-            header('Location: index.php');
-            exit;
-        } else {
-            // échec
-            echo "Error adding item: " . mysqli_error($conn);
-            header('Location: index.php');
-            exit;
-        }
+    // Vérifier les champs vides ou invalides
+    if (empty($model) || empty($date) || $distance <= 0 || $price <= 0 || empty($imageurl)) {
+        echo "Saisie invalide. Veuillez remplir correctement tous les champs.";
+        exit;
     }
+
+    // Préparer et exécuter la requête SQL de manière sécurisée
+    $stmt = $conn->prepare("INSERT INTO cars (model, date, distance, price, imageurl) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssdss", $model, $date, $distance, $price, $imageurl);
+
+    $result = $stmt->execute();
+
+    if ($result) {
+        // Insertion réussie
+        header('Location: index.php');
+        exit;
+    } else {
+        // Échec de l'insertion
+        echo "Une erreur s'est produite. Veuillez réessayer ultérieurement.";
+        error_log("Erreur lors de l'ajout : " . $stmt->error);
+        header('Location: index.php');
+        exit;
+    }
+}
 ?>

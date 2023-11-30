@@ -1,31 +1,36 @@
 <?php
+
 require_once "connection_bd.php";
 
-
-
-// Gestion de la requete POST
+// Gestion de la requête POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Association des données a leurs types appropriée 
-    $type = $_POST['type'];
-    $time = $_POST['time'];
-    $text = $_POST['text'];
-    $price = $_POST['price'];
-    $imageurl = $_POST['imageurl'];
+    // Valider et filtrer les entrées utilisateur
+    $type = htmlspecialchars($_POST['type']);
+    $time = htmlspecialchars($_POST['time']);
+    $text = htmlspecialchars($_POST['text']);
+    $price = floatval($_POST['price']); // Assurez-vous que le prix est un nombre décimal
+    $imageurl = htmlspecialchars($_POST['imageurl']);
 
-   
+    // Vérifier les champs vides ou invalides
+    if (empty($type) || empty($time) || empty($text) || $price <= 0 || empty($imageurl)) {
+        echo "Saisie invalide. Veuillez remplir correctement tous les champs.";
+        exit;
+    }
 
-    // Inserttion des données dans la base de données
-    $sql = "INSERT INTO services (type, time, text, price, imageurl) VALUES ('$type', '$time', '$text', '$price', '$imageurl')";
-    $result = mysqli_query($conn, $sql);
+    // Préparer et exécuter la requête SQL
+    $stmt = $conn->prepare("INSERT INTO services (type, time, text, price, imageurl) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssdss", $type, $time, $text, $price, $imageurl);
+
+    $result = $stmt->execute();
 
     if ($result) {
-        // succées
+        // Insertion réussie
         header('Location: index.php');
         exit;
     } else {
-        // échec
-        echo "Error adding item: " . mysqli_error($conn);
-        header('Location: index.php');
+        // Échec de l'insertion
+        echo "Une erreur s'est produite. Veuillez réessayer ultérieurement.";
+        error_log("Erreur lors de l'ajout : " . $stmt->error);
         exit;
     }
 }

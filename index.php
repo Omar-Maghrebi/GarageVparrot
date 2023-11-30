@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <?php
 session_start();
-$_SESSION['role'];
+if(isset($_SESSION['role'])):
+  $_SESSION['role'];
+endif;
 
 ?>
 <html lang="fr">
 
 <head>
   <!-- Adaptation aux différents écrans-->
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Les différents CDN du framework Bootstrap -->
@@ -22,21 +24,25 @@ $_SESSION['role'];
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
-  
-  
+
+
   <style>
-.body {
-font-family: "Gill Sans", sans-serif;
-}
-.footer {
-font-family: "Gill Sans", sans-serif;
-}
+    .body {
+      font-family: "Gill Sans", sans-serif;
+    }
+
+    .footer {
+      font-family: "Gill Sans", sans-serif;
+    }
+
     .btn:active {
       background-color: red
     }
-    .modal{
+
+    .modal {
       max-height: 70vh;
     }
+
     .modal-backdrop {
       visibility: hidden;
     }
@@ -49,29 +55,31 @@ font-family: "Gill Sans", sans-serif;
       background-color: #d9777f
     }
 
-    .form-control-plaintext{
+    .form-control-plaintext {
+      text-align: center;
+      color: white;
+    }
 
-color: white;
-}
-    .Horaires-container{
-
-color: white;
-}
-
-
-    .container{
+    .nav-link{
+      margin-left: 5px;
+    }
+    .container {
 
       background-color: silver;
       opacity: 95%;
-      min-height: 120vh;
+      min-height: 100vh;
     }
 
-    .range-container {
-      flex: 1;
+    .indicateur {
       display: flex;
-      padding: 10px;
-      flex-wrap: wrap;
-      flex: 0 1 31%;
+      justify-content: center;
+    }
+
+    .range {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+
     }
 
     .flex-container {
@@ -82,30 +90,47 @@ color: white;
     }
 
     .flex-item {
-      flex: 0 0 31%;
-      padding: 10px;
-      min-width: 20vh;
-      max-width: 50vh;
-      max-width: 50vh;
+      padding: 1vh;
+      width: 33vh;
+    }
+    .card {
+      max-width: 100%;
+      min-height: 100%;
+      height: 100%;
+    }
+    .card-img-top {
+      height: 20vh;
+      object-fit: cover
+    }
+    .voiture {
+      max-width: 100%;
+      min-height: 100%;
+      height: 100%;
+      position: relative;
     }
 
-   
+    .modal {
+      top: 20vh;
+      position: center;
+      max-height: 70vh;
+
+    }
   </style>
 </head>
 
 <body>
 
   <div class="bg-image image position-sticky" style="background-image: url('/garagevparrot.png');
-            height: 140hv ">
+            height: 100hv ">
 
     <div class="container-fluid">
       <!-- Navbar et navigation -->
       <div class="navbar sticky-top justify-content-center bg-secondary">
         <ul class="nav nav-pills justify-content-center bg-secondary " id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
-            
-          <img  width="140" height="60" src="Icon1.png">
-          
+
+            <img width="140" height="60" src="Icon1.png">
+
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link active btn btn-secondary text-light " id="home-tab" data-bs-toggle="pill"
@@ -125,7 +150,11 @@ color: white;
           </li>
           <!-- Espace réservé aux non visiteurs -->
           <?php
-          if ($_SESSION['role'] === 'admin' or $_SESSION['role'] === 'employe') {
+
+if(isset($_SESSION['role'])):
+ 
+
+          if (isset($_SESSION['role'])) {
     
             
     ?>
@@ -135,8 +164,7 @@ color: white;
           </li>
           <!-- Espace réservé admin: Création de compte employé -->
           <?php
-          }
-
+          
           if ($_SESSION['role'] === 'admin') {
     
             
@@ -146,22 +174,25 @@ color: white;
               data-bs-target="#menu4" type="button" role="tab" aria-selected="false">Créer compte employé</button>
           </li>
 
-  <?php
-}
+          <?php
+}}
+endif;
 ?>
 
           <?php
-          if ($_SESSION['role'] === 'admin' or $_SESSION['role'] === 'employe') {
+          
+          //($_SESSION['role'] === 'admin' or $_SESSION['role'] === 'employe')
+          if (isset($_SESSION['role'])) {
     
             
     ?>
           <li class="nav-item " role="presentation">
-          <form method="POST" action="logout.php">
-            <!-- Bouton se Déconnecter-->
-  <button class="btn btn-danger text-light" type="submit">Se Déconnecter</button>
-  </form>
-  </li>
-  <?php
+            <form method="POST" action="logout.php">
+              <!-- Bouton se Déconnecter-->
+              <button class="btn btn-danger text-light" type="submit">Se Déconnecter</button>
+            </form>
+          </li>
+          <?php
 }else {
 ?>
           <li class="nav-item " role="presentation">
@@ -170,7 +201,8 @@ color: white;
           </li>
           <?php
 }
-?>        
+
+?>
 
 
 
@@ -182,78 +214,91 @@ color: white;
 
         <div id="home" class="tab-pane fade show active" role="tabpanel">
           <div class="container">
-            
-          
-          
-          <!--Carousel -->
-          <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://images.pexels.com/photos/5229597/pexels-photo-5229597.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Forfait vacance</h5>
-        <p>Description: Voyager l'esprit tranquile avec notre forfait vacance</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="https://images.pexels.com/photos/4022545/pexels-photo-4022545.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Forfait Freins</h5>
-        <p>Changement tout type de frein avec vidange du circuit avec une huile de qualité.
 
-</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="https://images.pexels.com/photos/244553/pexels-photo-244553.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Forfait Pneus</h5>
-        <p>Changement de pneus avec équilibrage et parallélisme.</p>
-      </div>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+
+
+            <!--Carousel -->
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                  aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                  aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                  aria-label="Slide 3"></button>
+              </div>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img
+                    src="https://images.pexels.com/photos/5229597/pexels-photo-5229597.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    class="d-block w-100" alt="...">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5>Forfait vacance</h5>
+                    <p>Description: Voyager l'esprit tranquille avec notre forfait vacance</p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="https://images.pexels.com/photos/4022545/pexels-photo-4022545.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    class="d-block w-100" alt="...">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5>Forfait Freins</h5>
+                    <p>Changement tout type de frein et vidange du circuit avec une huile de qualité.
+
+                    </p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="https://images.pexels.com/photos/244553/pexels-photo-244553.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    class="d-block w-100" alt="...">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5>Forfait Pneus</h5>
+                    <p>Changement de pneus avec équilibrage et parallélisme.</p>
+                  </div>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
 
 
             <div class="container">
 
-            <div class="d-flex justify-content-center">
+
               <div class="flex-container justify-content-center" id="flexContainer">
                 <!-- creation de nouveaux services-->
 
                 <?php
+                if(isset($_SESSION['role'])):
           if ($_SESSION['role'] === 'admin') {
     
             
     ?>
                 <form method="POST" action="services.php">
-                <div class="navbar sticky-top justify-content-center bg-danger">
-                  <input class="form-control" type="text" name="type" placeholder="Type de service" required >
-                  <input class="form-control" type="number" name="time" placeholder="temps requis" required>
-                  <input class="form-control" type="text" name="text" placeholder="Description" required>
-                  <input class="form-control" type="number" name="price" placeholder="Prix" required>
-                  <input class="form-control" type="url" name="imageurl" placeholder="URL de l'image" required>
-                  
-                  <div class="d-grid ">
-                <button type="submit" class="btn btn-danger m-0">Valider le service</button>
-              </div>
+                  <div class="navbar sticky-top justify-content-center bg-danger">
+                    <input class="form-control" type="text" name="type" placeholder="Type de service" required>
+                    <input class="form-control" type="number" name="time" placeholder="temps requis" required>
+                    <input class="form-control" type="text" name="text" placeholder="Description" required>
+                    <input class="form-control" type="number" name="price" placeholder="Prix" required>
+                    <input class="form-control" type="url" name="imageurl" placeholder="URL de l'image" required>
+
+                    <div class="d-grid ">
+                      <button type="submit" class="btn btn-danger m-0">Valider le service</button>
+                    </div>
                   </div>
                 </form>
                 <?php
                 }
+              endif;
                 require_once "connection_bd.php";
                 
                 
@@ -262,88 +307,67 @@ color: white;
                 $result = mysqli_query($conn, $sql);
 
             
-               
+                               
                 foreach ($result as $row) {
-                  ?>
-                  <div class="flex-item">
+                            
+                  $service = new Service($row['imageurl'], $row['type'], $row['time'], $row['text'], $row['price']);
+                  
+                  $service->display();
 
-                    <div class="card">
-                      <div class="card border-danger">
-                        <img class="card-img-top" src="<?php $showimage = $row['imageurl'];
-                        echo $showimage; ?>" alt="Card image">
-                        <div class="card-body">
-                          <h4 class="card-title">
-                            <?php echo "Service: ". $row['type']; ?>
-                          </h4>
-                          <p class="card-subtitle">
-                            <?php echo "Temps requis: ". $row['time']. "mn"; ?>
-                          </p>
-                          <p class="card-text">
-                            <?php echo "Description: ". $row['text']; ?>
-                          </p>
-                          <p class="card-footer">
-                            <?php echo "Prix: ". $row['price']. "€"; ?>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                  <?php
                 }
 
                 ?>
 
               </div>
-            </div>
 
 
-  
-</div>
 
-<!-- Boite pour faire un avis-->
-<div class="d-flex flex-column">
-    <div class="flex-fill">
-      <div class="card">
-        <div class="card-header">
-          <h5 class="card-title">Évaluer nous</h5>
-        </div>
-        <div class="card-body">
-          <form method="POST" action="avis.php">
-            <div class="flex-fill">
-              <label for="name" class="form-label">Nom et prénom:</label>
-              <input type="text" class="form-control" name="name" placeholder="Nom et prénom"  required>
+
             </div>
-            <div class="flex-fill">
-              <label for="comment" class="form-label">Commentaire:</label>
-              <textarea class="form-control" name="text" rows="3" placeholder="Votre commentaire"></textarea>
-            </div>
-            <div class="flex-fill">
-              <label for="rating" class="form-label">Note:</label>
-              <select class="form-select" name="rating">
-                <option value="5">5 </option>
-                <option value="4">4 </option>
-                <option value="3">3 </option>
-                <option value="2">2 </option>
-                <option value="1">1 </option>
-              </select>
-            </div>
-            <div class="d-grid ">
-                <button type="submit" class="btn btn-secondary">Valider</button>
+
+            <!-- Boite pour faire un avis-->
+            <div class="d-flex flex-column">
+              <div class="flex-fill">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Évaluer nous</h5>
+                  </div>
+                  <div class="card-body">
+                    <form method="POST" action="avis.php">
+                      <div class="flex-fill">
+                        <label for="name" class="form-label">Nom et prénom:</label>
+                        <input type="text" class="form-control" name="name" placeholder="Nom et prénom" required>
+                      </div>
+                      <div class="flex-fill">
+                        <label for="comment" class="form-label">Commentaire:</label>
+                        <textarea class="form-control" name="text" rows="3" placeholder="Votre commentaire"></textarea>
+                      </div>
+                      <div class="flex-fill">
+                        <label for="rating" class="form-label">Note:</label>
+                        <select class="form-select" name="rating">
+                          <option value="5">5 </option>
+                          <option value="4">4 </option>
+                          <option value="3">3 </option>
+                          <option value="2">2 </option>
+                          <option value="1">1 </option>
+                        </select>
+                      </div>
+                      <div class="d-grid ">
+                        <button type="submit" class="btn btn-secondary">Valider</button>
+                      </div>
+                    </form>
+
+
+                  </div>
+                </div>
+
+
               </div>
-          </form>
+            </div>
+            <!-- Affichage des avis -->
+            <div class="flex-container justify-content-center" id="flexContainer">
 
-
-        </div>
-      </div>
-
-
-    </div>
-  </div>
-<!-- Affichage des avis -->
-<div class="flex-container justify-content-center" id="flexContainer">
-
-<?php
+              <?php
               
               require_once "connection_bd.php";
               
@@ -357,16 +381,16 @@ color: white;
               foreach ($result as $row) {
                 if ($row['valid'] == 1) {
                 ?>
-                <div class="flex-item">
+              <div class="flex-item">
                 <?php
-          if ($_SESSION['role'] === 'admin' or $_SESSION['role'] === 'employe') {
+          if (isset($_SESSION['role'])) {
     //controle d'acces au bouton pour afficher ou non un avis
             
     ?>
-                <form method="POST" action="validationavis.php" >
-                <input name="id" value="<?php echo $row['id']; ?>" type="hidden" >
-                <input name="valid" value="0" type="hidden">
-<button class="btn btn-secondary" type="submit"></button>
+                <form method="POST" action="validationavis.php">
+                  <input name="id" value="<?php echo $row['id']; ?>" type="hidden">
+                  <input name="valid" value="0" type="hidden">
+                  <button class="btn btn-secondary" type="submit"></button>
 
                 </form>
 
@@ -374,30 +398,30 @@ color: white;
                 }
                 ?>
 
-                  <div class="card">
-                    <div class="card border-danger">
-                    
-                      <div class="card-body">
-                        <h4 class="card-title">
-                          <?php echo  $row['name']; ?>
-                        </h4>
-                        <p class="card-text">
-                          <?php echo  $row['text']; ?>
-                        </p>
-                        <p class="card-footer">
-                          <?php echo "Note: ". $row['rating']." Étoiles" ; ?>
-                        </p>
-                      </div>
+                <div class="card">
+                  <div class="card border-danger">
+
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        <?php echo  $row['name']; ?>
+                      </h4>
+                      <p class="card-text">
+                        <?php echo  $row['text']; ?>
+                      </p>
+                      <p class="card-footer">
+                        <?php echo "Note: ". $row['rating']." Étoiles" ; ?>
+                      </p>
                     </div>
                   </div>
-
                 </div>
-                <?php
+
+              </div>
+              <?php
                 }
               }
 
               ?>
-</div>
+            </div>
 
 
 
@@ -407,64 +431,74 @@ color: white;
 
         <div id="menu2" class="tab-pane fade" role="tabpanel">
           <div class="container">
-              <!-- Acces pour les non-visiteurs pour ajouter une voiture -->
-          <?php
-          if ($_SESSION['role'] === 'admin' or $_SESSION['role'] === 'employe') {
+            <!-- Acces pour les non-visiteurs pour ajouter une voiture -->
+            <?php
+          if (isset($_SESSION['role'])) {
     
             
     ?>
-                  <form method="POST" action="voiture.php">
-                  <div class="navbar sticky-top justify-content-center bg-danger">
-                    <input class="form-control" type="text" name="model" placeholder="Marque/Modèle"  required>
-                    <input class="form-control" type="number" name="date" placeholder="Année" required>
-                    <input class="form-control" type="number" name="distance" placeholder="Kilometrage" required>
-                    <input class="form-control" type="number" name="price" placeholder="Prix" required>
-                    <input class="form-control" type="url" name="imageurl" placeholder="Url de l'image" required>
-                    <div class="d-grid ">
-                <button type="submit" class="btn btn-danger m-0">Valider le service</button>
+            <form method="POST" action="voiture.php">
+              <div class="navbar sticky-top justify-content-center bg-danger">
+                <input class="form-control" type="text" name="model" placeholder="Marque/Modèle" required>
+                <input class="form-control" type="number" name="date" placeholder="Année" required>
+                <input class="form-control" type="number" name="distance" placeholder="Kilometrage" required>
+                <input class="form-control" type="number" name="price" placeholder="Prix" required>
+                <input class="form-control" type="url" name="imageurl" placeholder="Url de l'image" required>
+                <div class="d-grid ">
+                  <button type="submit" class="btn btn-danger m-0">Valider le service</button>
+                </div>
               </div>
-                  </div>
-                    
-                  </form>
-                  <?php
+
+            </form>
+            <?php
                 }
                 ?>
 
-           
-              
-<!-- Filtres de voitures -->
-<form>
-  
-    <div class="d-flex flex-wrap">
-      <div class="p-2 flex-fill mb-3 mt-3">
-        <label for="rangeannee" class="form-label">Année minimum:</label>
-        <div class="range-container">
-          <div class="indicateur" id="range-annee">1980</div>
-          <input type="range" id="rangeannee" min="1980" max="2050" step="1" value="1980" oninput="updateValueIndicator(this, 'range-annee')">
-        </div>
-      </div>
-      <div class="p-2 flex-fill mb-3 mt-3">
-        <label for="rangekilometrage" class="form-label">Kilométrage maximum:</label>
-        <div class="range-container">
-          <div class="indicateur" id="range-kilometrage">400000</div>
-          <input type="range" id="rangekilometrage" min="0" max="400000" step="10000" value="400000" oninput="updateValueIndicator(this, 'range-kilometrage')">
-        </div>
-      </div>
-      <div class="p-2 flex-fill mb-3 mt-3">
-        <label for="rangedeprix" class="form-label">Budget maximum:</label>
-        <div class="range-container">
-          <div class="indicateur" id="range-deprix">300000</div>
-          
-          <input type="range" id="rangedeprix" min="0" max="300000" step="1000" value="300000" oninput="updateValueIndicator(this, 'range-deprix')">
-          
-        </div>
-      </div>
-    </div>
- 
-  <div class="d-grid">
-    <button type="button" class="btnfiltre btn btn-secondary m-0" onclick="filtrevoitures()">Appliquer le filtre</button>
-  </div>
-</form>
+
+
+            <!-- Filtres de voitures -->
+            <form>
+
+              <div class="d-flex flex-wrap">
+                <div class="flex-fill p-3">
+                  <label for="rangeannee" class="form-label">Année minimum:</label>
+                  
+                  <div class="range-container">
+                  <div class="indicateur" id="range-annee">1980</div>
+                    <input class="range" type="range" id="rangeannee" min="1980" max="2050" step="1" value="1980"
+                      oninput="updateValueIndicator(this, 'range-annee')">
+                     
+                  </div>
+                </div>
+                <div class="flex-fill p-3">
+                  <label for="rangekilometrage" class="form-label">Kilométrage maximum:</label>
+                  
+                  <div class="range-container">
+                  <div class="indicateur" id="range-kilometrage">400000</div>
+                    <input class="range" type="range" id="rangekilometrage" min="0" max="400000" step="10000" value="400000"
+                      oninput="updateValueIndicator(this, 'range-kilometrage')">
+                      
+                  </div>
+                </div>
+                <div class="flex-fill p-3">
+                  <label for="rangedeprix" class="form-label">Budget maximum:</label>
+                  
+                  <div class="range-container">
+
+                  <div class="indicateur" id="range-deprix">300000</div>
+                    <input class="range" type="range" id="rangedeprix" min="0" max="300000" step="1000" value="300000"
+                      oninput="updateValueIndicator(this, 'range-deprix')">
+                      
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-grid">
+                <button type="button" class="btnfiltre btn btn-secondary m-0" onclick="filtrevoitures()">Appliquer le
+                  filtre</button>
+              </div>
+            </form>
 
             <!-- Création des annonces de voitures-->
 
@@ -504,138 +538,154 @@ color: white;
                   $result = mysqli_query($conn, $sql);
                 
                   foreach ($result as $row) {
+                    $carmodel = $row['model'];
                     ?>
-                    
-                    <div class="flex-item">
-                      <div class="voiture" data-prix='<?= $row['price'] ?>' data-kilometrage='<?= $row['distance'] ?>' data-annee='<?= $row['date'] ?>' >
-                        <div class="card">
-                          <div class="card border-danger">
-                            <img class="card-img-top" src="<?php $showimage = $row['imageurl'];
+
+                  <div class="flex-item">
+                    <div class="voiture" data-prix='<?= $row['price'] ?>' data-kilometrage=' <?= $row['distance'] ?>' data-annee='<?= $row['date'] ?>' >
+                      <div class="card h=100">
+                        <div class="card border-danger">
+                          <img class="card-img-top" src="<?php $showimage = $row['imageurl'];
                             echo $showimage; ?>" alt="Card image">
-                            <div class="card-body">
-                              <h4 class="card-title">
-                                <?php echo $row['model']; ?>
-                              </h4>
-                              <p class="card-subtitle">
-                                <?php echo "Année: ". $row['date']; ?>
-                              </p>
-                              <p class="card-text">
-                                <?php echo "Kilometrage: ". $row['distance']. "km"; ?>
-                              </p>
+                          <div class="card-body">
+                            <h4 class="card-title">
+                              <?php echo $carmodel; ?>
+                            </h4>
+                            <p class="card-subtitle">
+                              <?php echo "Année: ". $row['date']; ?>
+                            </p>
+                            <p class="card-text">
+                              <?php echo "Kilometrage: ". $row['distance']. "km"; ?>
+                            </p>
 
 
 
 
-                              <p class="card-footer">
-                                <?php echo "Prix: ". $row['price']. "€"; ?>
-                                </p>
-                                <div class="d-grid ">
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                            <p class="card-footer">
+                              <?php echo "Prix: ". $row['price']. "€"; ?>
+                            </p>
+                            <div class="d-grid ">
+                              <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal3">
                                 Contacter
-</button>
-</div>
-                                <div class="modal top fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModal3Label" aria-hidden="true" data-mdb-backdrop="false" data-mdb-keyboard="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5 mt-5" id="exampleModal">Nous Contacter Pour cet article</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      
-      
-            <!-- "modal" permettant directement de contacter le service -->
-              <form method="POST" action="messages.php">
-                <div class="d-flex flex-column">
-                           <div class="mb-1 mt-1">
-                  <label for="title">Sujet:</label>
-                  <input type="title"  value='<?php $row['model']; ?>'  name="title"
-                    required>
-                </div>
-              <div class="mb-1 mt-1">
-                  <label for="text">Nom et prénom:</label>
-                  <input type="text" class="form-control"  placeholder="Nom et prénom:" name="name"
-                    required>
-                </div>
-                <div class="mb-1 mt-1">
-                  <label for="email">Adresse E-mail:</label>
-                  <input type="email" class="form-control"  placeholder="Adresse E-mail" name="email"
-                    required>
-                </div>
-                <div class="mb-1 mt-1">
-                  <label for="number">Numero de telephone:</label>
-                  <input type="number" class="form-control"  placeholder="Numero de telephone:" data-mdb-input-mask="9999999999" name="number"
-                    required>
-                </div>
-                <div class="mb-1 mt-1">
-                <label for="text" class="form-label">Commentaire:</label>
+                              </button>
+                            </div>
+                            <div class="modal top fade" id="exampleModal3" tabindex="-1"
+                              aria-labelledby="exampleModal3Label" aria-hidden="true" data-mdb-backdrop="false"
+                              data-mdb-keyboard="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h1 class="modal-title fs-5 mt-5" id="exampleModal">Nous Contacter Pour cet article
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                      aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
 
-              <textarea class="form-control" name="text" rows="3" placeholder="Votre message" required></textarea>
-                </div>
-                </div>
-              </form>
 
-            </div>
-            
-            <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <button type="submit" class="btn btn-secondary">Envoyer votre message</button>
+                                    <!-- "modal" permettant directement de contacter le service -->
+                                    <form method="POST" action="messages.php">
+                                      <div class="d-flex flex-column">
+                                        <div class="mb-1 mt-1">
+                                          <label for="model">Sujet:</label>
+                                          <input type="text" value='<?php echo $carmodel; ?>' name="model"
+                                          required>
+                                        </div>
+                                        <div class="mb-1 mt-1">
+                                          <label for="text">Nom et prénom:</label>
+                                          <input type="text" class="form-control" placeholder="Nom et prénom:"
+                                            name="name" required>
+                                        </div>
+                                        <div class="mb-1 mt-1">
+                                          <label for="email">Adresse E-mail:</label>
+                                          <input type="email" class="form-control" placeholder="Adresse E-mail"
+                                            name="email" required>
+                                        </div>
+                                        <div class="mb-1 mt-1">
+                                          <label for="number">Numero de telephone:</label>
+                                          <input type="number" class="form-control" placeholder="Numero de telephone:"
+                                            data-mdb-input-mask="9999999999" name="number" required>
+                                        </div>
+                                        <div class="mb-1 mt-1">
+                                          <label for="text" class="form-label">Commentaire:</label>
 
-      </div>
-      
-        
-      </div>
-    </div>
-  </div>
-</div>
-                              
+                                          <textarea class="form-control" name="text" rows="3"
+                                            placeholder="Votre message" required></textarea>
+                                        </div>
+                                      </div>
+                                    </form>
+
+                                  </div>
+
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                      data-bs-dismiss="modal">Fermer</button>
+                                    <button type="submit" class="btn btn-secondary">Envoyer votre message</button>
+
+                                  </div>
+
+
+                                </div>
+                              </div>
                             </div>
                           </div>
+
                         </div>
                       </div>
-                    
-                    <?php
+                    </div>
+                  </div>
+
+                  <?php
                   }
 
                   ?>
-                  
-                  
-                  </div>
+
+
                 </div>
               </div>
             </div>
-          
-
-
           </div>
-          
+
+
+
+        </div>
+
         <div id="menu3" class="tab-pane fade" role="tabpanel">
           <div class="container">
-          
+
             <div class="d-flex justify-content-center">
               <div class="flex-container justify-content-center" id="flexContainer">
                 <!-- creation de nouveaux services-->
 
                 <?php
+
+if(isset($_SESSION['role'])):
+  
+
           if ($_SESSION['role'] === 'admin') {
     
             
     ?>
                 <form method="POST" action="services.php">
-                <div class="navbar sticky-top justify-content-center bg-danger">
-                  <input class="form-control" type="text" name="type" placeholder="Type de service" required >
-                  <input class="form-control" type="number" name="time" placeholder="temps requis" required>
-                  <input class="form-control" type="text" name="text" placeholder="Description" required>
-                  <input class="form-control" type="number" name="price" placeholder="Prix" required>
-                  <input class="form-control" type="url" name="imageurl" placeholder="URL de l'image" required>
-                  
-                  <div class="d-grid ">
-                <button type="submit" class="btn btn-danger m-0">Valider le service</button>
-              </div>
+                  <div class="navbar sticky-top justify-content-center bg-danger">
+                    <input class="form-control" type="text" name="type" placeholder="Type de service" required>
+                    <input class="form-control" type="number" name="time" placeholder="temps requis" required>
+                    <input class="form-control" type="text" name="text" placeholder="Description" required>
+                    <input class="form-control" type="number" name="price" placeholder="Prix" required>
+                    <input class="form-control" type="url" name="imageurl" placeholder="URL de l'image" required>
+
+                    <div class="d-grid ">
+                      <button type="submit" class="btn btn-danger m-0">Valider le service</button>
+                    </div>
                   </div>
                 </form>
                 <?php
+
                 }
+
+              endif;
+
                 require_once "connection_bd.php";
                 
                 
@@ -645,41 +695,55 @@ color: white;
 
             
                
-                foreach ($result as $row) {
-                  ?>
-                  <div class="flex-item">
-
-                    <div class="card">
-                      <div class="card border-danger">
-                        <img class="card-img-top" src="<?php $showimage = $row['imageurl'];
-                        echo $showimage; ?>" alt="Card image">
-                        <div class="card-body">
-                          <h4 class="card-title">
-                            <?php echo "Service: ". $row['type']; ?>
-                          </h4>
-                          <p class="card-subtitle">
-                            <?php echo "Temps requis: ". $row['time']. "mn"; ?>
-                          </p>
-                          <p class="card-text">
-                            <?php echo "Description: ". $row['text']; ?>
-                          </p>
-                          <p class="card-footer">
-                            <?php echo "Prix: ". $row['price']. "€"; ?>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                  <?php
+               
+                // Utilisation de la POO Pour afficher les services
+                class Service {
+                    public $imageurl;
+                    public $type;
+                    public $time;
+                    public $text;
+                    public $price;
+                
+                    public function __construct($imageurl, $type, $time, $text, $price) {
+                        $this->imageurl = $imageurl;
+                        $this->type = $type;
+                        $this->time = $time;
+                        $this->text = $text;
+                        $this->price = $price;
+                    }
+                
+                    public function display() {
+                        echo '
+                        <div class="flex-item">
+                          <div class="card">
+                            <div class="card border-danger">
+                              <img class="card-img-top" src="' . $this->imageurl . '" alt="Card image">
+                              <div class="card-body">
+                                <h4 class="card-title">Service: ' . $this->type . '</h4>
+                                <p class="card-subtitle">Temps requis: ' . $this->time . 'mn</p>
+                                <p class="card-text">Description: ' . $this->text . '</p>
+                                <p class="card-footer">Prix: ' . $this->price . '€</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>';
+                    }
                 }
-
+                
+                foreach ($result as $row) {
+                            
+                    $service = new Service($row['imageurl'], $row['type'], $row['time'], $row['text'], $row['price']);
+                    
+                    $service->display();
+                }
                 ?>
+
+                
 
               </div>
             </div>
-            </div>
-          
+          </div>
+
         </div>
         <div id="menu4" class="tab-pane fade" role="tabpanel">
           <div class="container">
@@ -693,8 +757,8 @@ color: white;
                 </div>
                 <div class="mb-3 mt-3">
                   <label for="password" class="form-label">Mot de passe:</label>
-                  <input type="password" class="form-control" id="newpassword" placeholder="Mot de passe" name="password"
-                    required>
+                  <input type="password" class="form-control" id="newpassword" placeholder="Mot de passe"
+                    name="password" required>
                 </div>
                 <button type="submit" class="btn btn-secondary">Créer un compe employé</button>
               </form>
@@ -716,29 +780,30 @@ color: white;
                   <input type="password" class="form-control" id="password" placeholder="Mot de passe" name="password"
                     required>
                 </div>
-
+                <div class="d-grid ">
                 <button type="submit" class="seconnecter btn btn-secondary">Se connecter</button>
+                </div>
               </form>
 
             </div>
           </div>
         </div>
         <div id="menu6" class="tab-pane fade" role="tabpanel">
-        <div class="container">
-        <?php
-          if ($_SESSION['role'] === 'admin' or $_SESSION['role'] === 'employe') {
+          <div class="container">
+            <?php
+          if (isset($_SESSION['role'])) {
     
             
     ?>
- 
- 
-          
-          <div class="d-flex justify-content-center">
-            <div class="flex-container justify-content-center" id="flexContainer">
-              <!-- Affichage des Messages reçus uniquement pour les non-visiteurs-->
 
 
-              <?php
+
+            <div class="d-flex justify-content-center">
+              <div class="flex-container justify-content-center" id="flexContainer">
+                <!-- Affichage des Messages reçus uniquement pour les non-visiteurs-->
+
+
+                <?php
               
               require_once "connection_bd.php";
               
@@ -755,22 +820,22 @@ color: white;
 
                   <div class="card">
                     <div class="card border-danger">
-                    <div class="card-header">
-                    <?php echo "title: ". $row['title']; ?>
-                  </div>
+                      <div class="card-header">
+                        <?php echo "Sujet: ". $row['title']; ?>
+                      </div>
                       <div class="card-body">
-                      <h4 class="card-title">
-                            <?php echo "Nom et prénom: ". $row['name']; ?>
-                          </h4>
-                          <p class="card-subtitle">
-                            <?php echo "Adresse Email : ". $row['email']; ?>
-                          </p>
-                          <p class="card-text">
-                            <?php echo "Numero de téléphone: ". $row['number']; ?>
-                          </p>
-                          <p class="card-footer">
-                            <?php echo "Message: ". $row['text']; ?>
-                          </p>
+                        <h4 class="card-title">
+                          <?php echo "Nom et prénom: ". $row['name']; ?>
+                        </h4>
+                        <p class="card-subtitle">
+                          <?php echo "Adresse Email : ". $row['email']; ?>
+                        </p>
+                        <p class="card-text">
+                          <?php echo "Numero de téléphone: ". $row['number']; ?>
+                        </p>
+                        <p class="card-footer">
+                          <?php echo "Message: ". $row['text']; ?>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -781,62 +846,59 @@ color: white;
 
               ?>
 
+              </div>
             </div>
-          </div>
-          
- 
 
- <?php
+
+
+            <?php
 
 }else {
 ?>
-<!-- Création des messages pour les visiteurs -->
-<div class="d-flex flex-column">
-<form method="POST" action="messages.php">
-            <div class="mb-1 mt-1">
-            <div class="d-grid ">
-              <button type="button" class="btn btn-success">Appeller nous: 9999999999</button>
-              </div>
-              </div>
-              <div class="flex-fill mb-1 mt-1">
-                  <label for="title">Sujet:</label>
-                  <input type="text" class="form-control"  placeholder="Sujet:" name="title"
-                    required>
+            <!-- Création des messages pour les visiteurs -->
+            <div class="d-flex flex-column">
+              <form method="POST" action="messages.php">
+                <div class="mb-1 mt-1">
+                  <div class="d-grid ">
+                    <button type="button" class="btn btn-success">Appeller nous: 9999999999</button>
+                  </div>
                 </div>
-              <div class="flex-fill mb-1 mt-1">
+                <div class="flex-fill mb-1 mt-1">
+                  <label for="title">Sujet:</label>
+                  <input type="text" class="form-control" placeholder="Sujet:" name="title" required>
+                </div>
+                <div class="flex-fill mb-1 mt-1">
                   <label for="text">Nom et prénom:</label>
-                  <input type="text" class="form-control"  placeholder="Nom et prénom:" name="name"
-                    required>
+                  <input type="text" class="form-control" placeholder="Nom et prénom:" name="name" required>
                 </div>
                 <div class="flex-fill mb-1 mt-1">
                   <label for="email">Adresse E-mail:</label>
-                  <input type="email" class="form-control"  placeholder="Adresse E-mail" name="email"
-                    required>
+                  <input type="email" class="form-control" placeholder="Adresse E-mail" name="email" required>
                 </div>
                 <div class="flex-fill mb-1 mt-1">
                   <label for="number">Numero de telephone:</label>
-                  <input type="number" class="form-control"  placeholder="Numero de telephone:" data-mdb-input-mask="9999999999" name="number"
-                    required>
+                  <input type="number" class="form-control" placeholder="Numero de telephone:"
+                    data-mdb-input-mask="9999999999" name="number" required>
                 </div>
                 <div class="flex-fill mb-1 mt-1">
-                <label for="text" class="form-label">Commentaire:</label>
+                  <label for="text" class="form-label">Commentaire:</label>
 
-              <textarea class="form-control" name="text" rows="3" placeholder="Votre message"></textarea>
+                  <textarea class="form-control" name="text" rows="3" placeholder="Votre message"></textarea>
                 </div>
                 <div class="d-grid ">
-                <button type="submit" class="btn btn-secondary">Envoyer votre message</button>
+                  <button type="submit" class="btn btn-secondary">Envoyer votre message</button>
                 </div>
-                
+
               </form>
 
             </div>
-            
 
-          <?php
+
+            <?php
 }
   ?>
 
-</div>
+          </div>
 
         </div>
 
@@ -844,14 +906,14 @@ color: white;
 
 
 
-        <div class="container">
-          
-          <div class="d-flex justify-content-center">
-            <div class="flex-container justify-content-center" id="flexContainer">
-              
+          <div class="container">
+
+            <div class="d-flex justify-content-center">
+              <div class="flex-container justify-content-center" id="flexContainer">
 
 
-              <?php
+
+                <?php
               
               require_once "connection_bd.php";
               
@@ -866,17 +928,17 @@ color: white;
                 if ($row['valid'] == 0) {
                 ?>
                 <div class="flex-item">
-                  
-                <form method="POST" action="validationavis.php" >
-                
-                <input name="id" value="<?php echo $row['id']; ?>" type="hidden" >
-                <input name="valid" value="1" type="hidden">
-<button class="btn btn-secondary" type="submit"></button>
 
-                </form>
+                  <form method="POST" action="validationavis.php">
+
+                    <input name="id" value="<?php echo $row['id']; ?>" type="hidden">
+                    <input name="valid" value="1" type="hidden">
+                    <button class="btn btn-secondary" type="submit"></button>
+
+                  </form>
                   <div class="card">
                     <div class="card border-danger">
-                    
+
                       <div class="card-body">
                         <h4 class="card-title">
                           <?php echo  $row['name']; ?>
@@ -897,10 +959,10 @@ color: white;
             }
               ?>
 
+              </div>
             </div>
           </div>
-          </div>
-        
+
 
 
 
@@ -921,13 +983,13 @@ color: white;
 
 </body>
 <footer>
-  <div class="b-example-divider bg-secondary"></div>
+ 
   <div class="container-fluid bg-secondary ">
-   <!-- Modification des horaires d'ouverture par l'administrateur -->
+    <!-- Modification des horaires d'ouverture par l'administrateur -->
 
-   <?php
+    <?php
           
-
+          if(isset($_SESSION['role'])):
           if ($_SESSION['role'] === 'admin') {
     
             
@@ -935,29 +997,31 @@ color: white;
 
 
 
-  <form method="POST" action="horaires.php">
-                
-  <div class="navbar sticky-top justify-content-center bg-danger">
+    <form method="POST" action="horaires.php">
 
-                <label for="text">Horaires:</label>
-                  
-                    <div class="mt-2">
-                    <label for="ouverture">Ouverture:</label> 
-                    </div>
-                  <input class="form-control" type="time" name="ouverture" required>
-                  <div class="mt-2">
-                  <label for="fermeture">Fermeture:</label> 
-                  </div>
-                  <input class="form-control" type="time" name="fermeture"  required>
-                                                
-                  <div class="d-grid ">
-                <button type="submit" class="btn btn-danger">Valider les horaires</button>
-              </div>
-              </div>
-                </form>
-                
-                <?php
+      <div class="navbar sticky-top justify-content-center bg-danger">
+
+      
+
+        <div class="mt-2">
+          <label for="ouverture">Ouverture:</label>
+        </div>
+        <input class="form-control" type="time" name="ouverture" required>
+        <div class="mt-2">
+          <label for="fermeture">Fermeture:</label>
+        </div>
+        <input class="form-control" type="time" name="fermeture" required>
+
+        <div class="d-grid ">
+          <button type="submit" class="btn btn-danger">Valider les horaires</button>
+        </div>
+      </div>
+    </form>
+
+    <?php
               }
+            endif;
+              
 
               require_once "connection_bd.php";
               
@@ -970,73 +1034,76 @@ color: white;
               foreach ($result as $row) {
               
                 ?>
-                
-                <div class="Horaires-container">
-                <div class="d-flex justify-content-center">
-                <input type="text" readonly class="form-control-plaintext"  value="Ouvert du lundi au vendredi aux horaires:">
-                <input type="text" readonly class="form-control-plaintext"  value="<?php echo  $row['text']; ?>">
-                <label for="ouverture">Ouverture:</label>
-                <input  type="time" value="<?php echo  $row['ouverture']; ?>" class="form-control-plaintext" name="ouverture"  readonly>
-                <label for="fermeture">Fermeture:</label> 
-                <input type="time" value='<?php echo  $row['fermeture']; ?>' class="form-control-plaintext" name="fermeture" readonly>
-                </div>
-                </div>
-                <?php
+
+    <div class="Horaires-container">
+      <div class="d-flex justify-content-center">
+      
+      
+       
+        <input type="text" value="<?php echo "Du lundi au vendredi, de ". $row['ouverture']. " à ". $row['fermeture'];?>" class="form-control-plaintext"  name="ouverture"
+          readonly>   
+      
+          
+          
+      </div>
+    </div>
+    <?php
               }
               ?>
 
-      <ul class="nav justify-content-center border-bottom pb-3 mb-3 mt-3">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3 mt-3">
 
-      </ul>
-      <p class="text-center">© 2023 Garage V Parrot, Omar MAGHREBI</p>
-    
+    </ul>
+    <p class="text-center">© 2023 Garage V Parrot, Omar MAGHREBI</p>
+
   </div>
 </footer>
 
-
-<script> 
-// Function pour mettre à jour l'indicateur des filtres
-function updateValueIndicator(input, indicatorId) {
-  var indicator = document.getElementById(indicatorId);
-  if (indicator) {
-    indicator.textContent = input.value;
-  } else {
-    console.error('Indicateur non trouvé');
+<script>
+  // Function pour mettre à jour l'indicateur des filtres
+  function updateValueIndicator(input, indicatorId) {
+    var indicator = document.getElementById(indicatorId);
+    if (indicator) {
+      indicator.textContent = input.value;
+    } else {
+      console.error('Indicateur non trouvé');
+    }
   }
-}
 
-// Function pour filtrer les voiture
-function filtrevoitures() {
-  function updateValueIndicator(value) {
+  // Function pour filtrer les voiture
+  function filtrevoitures() {
+    function updateValueIndicator(value) {
       const gamme = document.getElementById('gamme');
       gamme.textContent = value;
     }
-  var rangeAnnee = parseInt(document.getElementById('rangeannee').value);
-  var rangeKilometrage = parseInt(document.getElementById('rangekilometrage').value);
-  var rangeDeprix = parseInt(document.getElementById('rangedeprix').value);
+    var rangeAnnee = parseInt(document.getElementById('rangeannee').value);
+    var rangeKilometrage = parseInt(document.getElementById('rangekilometrage').value);
+    var rangeDeprix = parseInt(document.getElementById('rangedeprix').value);
 
-  var voitureItems = document.getElementsByClassName('voiture');
+    var voitureItems = document.getElementsByClassName('voiture');
 
-  // Itération des voitures
-  for (var i = 0; i < voitureItems.length; i++) {
-    var voiture = voitureItems[i];
-    var voitureAnnee = parseInt(voiture.getAttribute('data-annee'));
-    var voitureKilometrage = parseInt(voiture.getAttribute('data-kilometrage'));
-    var voiturePrix = parseInt(voiture.getAttribute('data-prix'));
+    // Itération des voitures
+    for (var i = 0; i < voitureItems.length; i++) {
+      var voiture = voitureItems[i];
+      var voitureAnnee = parseInt(voiture.getAttribute('data-annee'));
+      var voitureKilometrage = parseInt(voiture.getAttribute('data-kilometrage'));
+      var voiturePrix = parseInt(voiture.getAttribute('data-prix'));
 
-    // comparaison des données des voitures avec les filtres appliqués
-    if (voitureAnnee >= rangeAnnee && voitureKilometrage <= rangeKilometrage && voiturePrix <= rangeDeprix) {
-      // Affichage des voitures filtrès
-      voiture.style.display = 'block';
-    } else {
-      // Cacher le reste des voitures
-      voiture.style.display = 'none';
+      // comparaison des données des voitures avec les filtres appliqués
+      if (voitureAnnee >= rangeAnnee && voitureKilometrage <= rangeKilometrage && voiturePrix <= rangeDeprix) {
+        // Affichage des voitures filtrès
+        voiture.style.display = 'flex';
+        voiture.style = 'position: relative; min-height: 100%; height: 100%; ';
+        
+
+      } else {
+        // Cacher le reste des voitures
+        
+        voiture.style = 'padding: ; position:absolute; visibility:collapse;';
+      }
     }
   }
-}
 
 </script>
 
 </html>
-
-<!--php storm-->
