@@ -27,16 +27,28 @@ endif;
 
 
   <style>
+    .topofpage {
+      top: 0px;
+      position: absolute;
+      
+
+
+    }
     .body {
       font-family: "Gill Sans", sans-serif;
+      color: white;
     }
 
     .footer {
       font-family: "Gill Sans", sans-serif;
+     
     }
-
+    .footer-container{
+      color: white;
+      background-color: #092945;
+  }
     .btn:active {
-      background-color: red
+      background-color: #4285F4;
     }
 
     .modal {
@@ -48,11 +60,11 @@ endif;
     }
 
     .btn:hover {
-      background-color: #d9777f
+      background-color: #4285F4;
     }
 
     .btn:focus {
-      background-color: #d9777f
+      background-color: #4285F4;
     }
 
     .form-control-plaintext {
@@ -63,12 +75,28 @@ endif;
     .nav-link{
       margin-left: 5px;
     }
+    .navbar {
+      background-color: #092945;
+    }
+
     .container {
 
-      background-color: silver;
+      background-color: #092945;
       opacity: 95%;
       min-height: 100vh;
     }
+    .container-fluid {
+
+padding: 0;
+}
+
+    .form-container{
+margin-left: 7vw;
+margin-right: 7vw;
+width: auto;
+background-color: white;
+padding: 1rem;
+}
 
     .indicateur {
       display: flex;
@@ -89,24 +117,41 @@ endif;
 
     }
 
+    .tab-pane {
+
+  background-image: url('/garagevparrot.png');
+
+
+  min-height: 100vh;
+
+
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
     .flex-item {
       padding: 1vh;
       width: 33vh;
+      position: relative;
     }
     .card {
-      max-width: 100%;
-      min-height: 100%;
       height: 100%;
     }
     .card-img-top {
       height: 20vh;
       object-fit: cover
     }
+    .carousel{
+      height: 70vh;
+    }
+    .carousel-item{
+      object-fit: fill;
+      height: 70vh;
+    }
     .voiture {
-      max-width: 100%;
-      min-height: 100%;
       height: 100%;
-      position: relative;
+
     }
 
     .modal {
@@ -120,64 +165,66 @@ endif;
 
 <body>
 
-  <div class="bg-image image position-sticky" style="background-image: url('/garagevparrot.png');
-            height: 100hv ">
+
+
 
     <div class="container-fluid">
+
       <!-- Navbar et navigation -->
-      <div class="navbar sticky-top justify-content-center bg-secondary">
-        <ul class="nav nav-pills justify-content-center bg-secondary " id="myTab" role="tablist">
+      <div class="navbar sticky-top justify-content-center">
+        <ul class="nav nav-pills justify-content-center"  id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
 
             <img width="140" height="60" src="Icon1.png">
 
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link active btn btn-secondary text-light " id="home-tab" data-bs-toggle="pill"
+            <button class="nav-link active btn btn-secondary text-light" href="#top" id="home-tab" data-bs-toggle="pill"
               data-bs-target="#home" type="button" role="tab" aria-selected="true">Accueil</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link btn btn-secondary text-light  " id="menu2-tab" data-bs-toggle="pill"
+            <button class="nav-link btn btn-secondary text-light  " href="#top" id="menu2-tab" data-bs-toggle="pill"
               data-bs-target="#menu2" type="button" role="tab" aria-selected="false">Nos voitures</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link btn btn-secondary text-light  " id="menu3-tab" data-bs-toggle="pill"
+            <button class="nav-link btn btn-secondary text-light " href="#top" id="menu3-tab" data-bs-toggle="pill"
               data-bs-target="#menu3" type="button" role="tab" aria-selected="false">Services</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link btn btn-secondary text-light  " id="menu6-tab" data-bs-toggle="pill"
+            <button class="nav-link btn btn-secondary text-light  " href="#top" id="menu6-tab" data-bs-toggle="pill"
               data-bs-target="#menu6" type="button" role="tab" aria-selected="false">Contact</button>
           </li>
           <!-- Espace réservé aux non visiteurs -->
           <?php
 
-if(isset($_SESSION['role'])):
+          if(isset($_SESSION['role'])):
  
 
           if (isset($_SESSION['role'])) {
     
             
-    ?>
+         ?>
           <li class="nav-item" role="presentation">
-            <button class="nav-link btn btn-secondary text-light  " id="menu7-tab" data-bs-toggle="pill"
+            <button class="nav-link btn btn-secondary text-light  " href="#top" id="menu7-tab" data-bs-toggle="pill"
               data-bs-target="#menu7" type="button" role="tab" aria-selected="false">Avis</button>
           </li>
           <!-- Espace réservé admin: Création de compte employé -->
+
           <?php
           
           if ($_SESSION['role'] === 'admin') {
     
             
-    ?>
+                         ?>
           <li class="nav-item" role="presentation">
-            <button class="nav-link btn btn-secondary text-light  " id="menu4-tab" data-bs-toggle="pill"
+            <button class="nav-link btn btn-secondary text-light  " href="#top" id="menu4-tab" data-bs-toggle="pill"
               data-bs-target="#menu4" type="button" role="tab" aria-selected="false">Créer compte employé</button>
           </li>
 
           <?php
-}}
-endif;
-?>
+                }}
+                        endif;
+                ?>
 
           <?php
           
@@ -185,24 +232,24 @@ endif;
           if (isset($_SESSION['role'])) {
     
             
-    ?>
+           ?>
           <li class="nav-item " role="presentation">
-            <form method="POST" action="logout.php">
+            <form method="POST" autocomplete="on" action="logout.php">
               <!-- Bouton se Déconnecter-->
-              <button class="btn btn-danger text-light" type="submit">Se Déconnecter</button>
+              <button class="btn btn-danger text-light" href="#top" type="submit">Se Déconnecter</button>
             </form>
           </li>
           <?php
-}else {
-?>
+                }else {
+              ?>
           <li class="nav-item " role="presentation">
-            <button class="nav-link btn btn btn-secondary text-light " id="menu5-tab" data-bs-toggle="pill"
+            <button class="nav-link btn btn btn-secondary text-light " href="#top" id="menu5-tab" data-bs-toggle="pill"
               data-bs-target="#menu5" type="button" role="tab" aria-selected="false">Se connecter</button>
           </li>
           <?php
-}
+                  } 
 
-?>
+                  ?>
 
 
 
@@ -210,7 +257,10 @@ endif;
       </div>
 
       <div class="tab-content">
-
+      <div class="topofpage" id="top">
+</div>
+ 
+            
 
         <div id="home" class="tab-pane fade show active" role="tabpanel">
           <div class="container">
@@ -218,7 +268,7 @@ endif;
 
 
             <!--Carousel -->
-            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
                   aria-current="true" aria-label="Slide 1"></button>
@@ -283,7 +333,7 @@ endif;
     
             
     ?>
-                <form method="POST" action="services.php">
+                <form method="POST" autocomplete="on" action="services.php">
                   <div class="navbar sticky-top justify-content-center bg-danger">
                     <input class="form-control" type="text" name="type" placeholder="Type de service" required>
                     <input class="form-control" type="number" name="time" placeholder="temps requis" required>
@@ -326,21 +376,21 @@ endif;
             </div>
 
             <!-- Boite pour faire un avis-->
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column form-container">
               <div class="flex-fill">
                 <div class="card">
                   <div class="card-header">
                     <h5 class="card-title">Évaluer nous</h5>
                   </div>
                   <div class="card-body">
-                    <form method="POST" action="avis.php">
+                    <form method="POST" autocomplete="on" action="avis.php">
                       <div class="flex-fill">
                         <label for="name" class="form-label">Nom et prénom:</label>
                         <input type="text" class="form-control" name="name" placeholder="Nom et prénom" required>
                       </div>
                       <div class="flex-fill">
                         <label for="comment" class="form-label">Commentaire:</label>
-                        <textarea class="form-control" name="text" rows="3" placeholder="Votre commentaire"></textarea>
+                        <textarea class="form-control" name="text" rows="3" placeholder="Votre commentaire" ></textarea>
                       </div>
                       <div class="flex-fill">
                         <label for="rating" class="form-label">Note:</label>
@@ -387,7 +437,7 @@ endif;
     //controle d'acces au bouton pour afficher ou non un avis
             
     ?>
-                <form method="POST" action="validationavis.php">
+                <form method="POST" autocomplete="on" action="validationavis.php">
                   <input name="id" value="<?php echo $row['id']; ?>" type="hidden">
                   <input name="valid" value="0" type="hidden">
                   <button class="btn btn-secondary" type="submit"></button>
@@ -399,7 +449,7 @@ endif;
                 ?>
 
                 <div class="card">
-                  <div class="card border-danger">
+                  <div class="card border-primary">
 
                     <div class="card-body">
                       <h4 class="card-title">
@@ -437,7 +487,7 @@ endif;
     
             
     ?>
-            <form method="POST" action="voiture.php">
+            <form method="POST" autocomplete="on" action="voiture.php">
               <div class="navbar sticky-top justify-content-center bg-danger">
                 <input class="form-control" type="text" name="model" placeholder="Marque/Modèle" required>
                 <input class="form-control" type="number" name="date" placeholder="Année" required>
@@ -459,7 +509,7 @@ endif;
             <!-- Filtres de voitures -->
             <form>
 
-              <div class="d-flex flex-wrap">
+              <div class="d-flex flex-wrap bg-white">
                 <div class="flex-fill p-3">
                   <label for="rangeannee" class="form-label">Année minimum:</label>
                   
@@ -541,10 +591,10 @@ endif;
                     $carmodel = $row['model'];
                     ?>
 
-                  <div class="flex-item">
-                    <div class="voiture" data-prix='<?= $row['price'] ?>' data-kilometrage=' <?= $row['distance'] ?>' data-annee='<?= $row['date'] ?>' >
+                  
+                    <div class="voiture flex-item" data-prix='<?= $row['price'] ?>' data-kilometrage=' <?= $row['distance'] ?>' data-annee='<?= $row['date'] ?>' >
                       <div class="card h=100">
-                        <div class="card border-danger">
+                        <div class="card border-primary">
                           <img class="card-img-top" src="<?php $showimage = $row['imageurl'];
                             echo $showimage; ?>" alt="Card image">
                           <div class="card-body">
@@ -585,7 +635,7 @@ endif;
 
 
                                     <!-- "modal" permettant directement de contacter le service -->
-                                    <form method="POST" action="messages.php">
+                                    <form method="POST" autocomplete="on" action="messages.php">
                                       <div class="d-flex flex-column">
                                         <div class="mb-1 mt-1">
                                           <label for="model">Sujet:</label>
@@ -634,7 +684,7 @@ endif;
                         </div>
                       </div>
                     </div>
-                  </div>
+                  
 
                   <?php
                   }
@@ -660,14 +710,14 @@ endif;
 
                 <?php
 
-if(isset($_SESSION['role'])):
+                if(isset($_SESSION['role'])):
   
 
-          if ($_SESSION['role'] === 'admin') {
+                 if ($_SESSION['role'] === 'admin') {
     
             
-    ?>
-                <form method="POST" action="services.php">
+                    ?>
+                <form method="POST" autocomplete="on" action="services.php">
                   <div class="navbar sticky-top justify-content-center bg-danger">
                     <input class="form-control" type="text" name="type" placeholder="Type de service" required>
                     <input class="form-control" type="number" name="time" placeholder="temps requis" required>
@@ -684,7 +734,7 @@ if(isset($_SESSION['role'])):
 
                 }
 
-              endif;
+               endif;
 
                 require_once "connection_bd.php";
                 
@@ -716,7 +766,7 @@ if(isset($_SESSION['role'])):
                         echo '
                         <div class="flex-item">
                           <div class="card">
-                            <div class="card border-danger">
+                            <div class="card border-primary">
                               <img class="card-img-top" src="' . $this->imageurl . '" alt="Card image">
                               <div class="card-body">
                                 <h4 class="card-title">Service: ' . $this->type . '</h4>
@@ -745,11 +795,21 @@ if(isset($_SESSION['role'])):
           </div>
 
         </div>
+
+
+
+       
         <div id="menu4" class="tab-pane fade" role="tabpanel">
+        <?php
+           if(isset($_SESSION['role'])):
+          if ($_SESSION['role'] === 'admin') {
+    
+            
+                         ?>
           <div class="container">
             <!-- Menu création de compte employé-->
             <div class="d-flex justify-content-center">
-              <form method="POST" action="comptes.php">
+              <form method="POST" autocomplete="on" action="comptes.php">
                 <div class="mb-3 mt-3">
                   <label for="email" class="form-label">Adresse E-mail:</label>
                   <input type="email" class="form-control" id="newemail" placeholder="Adresse E-mail" name="email"
@@ -763,13 +823,23 @@ if(isset($_SESSION['role'])):
                 <button type="submit" class="btn btn-secondary">Créer un compe employé</button>
               </form>
             </div>
-          </div>
-        </div>
+            </div>
+          <?php
+                }
+              endif;
+                    
+                ?>
+                </div>
+        
+						 
+        
+
+
         <div id="menu5" class="tab-pane fade" role="tabpanel">
           <div class="container">
             <!-- Menu connection-->
             <div class="d-flex justify-content-center">
-              <form method="POST" action="login.php">
+              <form method="POST" autocomplete="on" action="login.php">
                 <div class="mb-3 mt-3">
                   <label for="email">Adresse E-mail:</label>
                   <input type="email" class="form-control" id="email" placeholder="Adresse E-mail" name="email"
@@ -800,7 +870,7 @@ if(isset($_SESSION['role'])):
 
             <div class="d-flex justify-content-center">
               <div class="flex-container justify-content-center" id="flexContainer">
-                <!-- Affichage des Messages reçus uniquement pour les non-visiteurs-->
+                <!-- Affichage des messages reçus uniquement pour les non-visiteurs-->
 
 
                 <?php
@@ -809,7 +879,7 @@ if(isset($_SESSION['role'])):
               
               
              
-              $sql = "SELECT * FROM Messages";
+              $sql = "SELECT * FROM messages";
               $result = mysqli_query($conn, $sql);
 
           
@@ -819,7 +889,7 @@ if(isset($_SESSION['role'])):
                 <div class="flex-item">
 
                   <div class="card">
-                    <div class="card border-danger">
+                    <div class="card border-primary">
                       <div class="card-header">
                         <?php echo "Sujet: ". $row['title']; ?>
                       </div>
@@ -851,13 +921,13 @@ if(isset($_SESSION['role'])):
 
 
 
-            <?php
+              <?php
 
-}else {
-?>
+                }else {
+                    ?>
             <!-- Création des messages pour les visiteurs -->
-            <div class="d-flex flex-column">
-              <form method="POST" action="messages.php">
+            <div class="d-flex flex-column form-container">
+              <form method="POST" autocomplete="on" action="messages.php">
                 <div class="mb-1 mt-1">
                   <div class="d-grid ">
                     <button type="button" class="btn btn-success">Appeller nous: 9999999999</button>
@@ -895,15 +965,20 @@ if(isset($_SESSION['role'])):
 
 
             <?php
-}
-  ?>
+                        }
+                    ?>
 
           </div>
 
-        </div>
-
+        
+          </div>
         <div id="menu7" class="tab-pane fade" role="tabpanel">
-
+        <?php
+           if(isset($_SESSION['role'])):
+          if ($_SESSION['role'] === 'admin') {
+    
+            
+                         ?>
 
 
           <div class="container">
@@ -929,7 +1004,7 @@ if(isset($_SESSION['role'])):
                 ?>
                 <div class="flex-item">
 
-                  <form method="POST" action="validationavis.php">
+                  <form method="POST" autocomplete="on" action="validationavis.php">
 
                     <input name="id" value="<?php echo $row['id']; ?>" type="hidden">
                     <input name="valid" value="1" type="hidden">
@@ -937,7 +1012,7 @@ if(isset($_SESSION['role'])):
 
                   </form>
                   <div class="card">
-                    <div class="card border-danger">
+                    <div class="card border-primary">
 
                       <div class="card-body">
                         <h4 class="card-title">
@@ -974,17 +1049,22 @@ if(isset($_SESSION['role'])):
 
 
         </div>
+        <?php
+                }
+                        endif;
+                ?>
 
-
+         
+             </div>
       </div>
     </div>
 
-  </div>
+  
 
 </body>
 <footer>
  
-  <div class="container-fluid bg-secondary ">
+  <div class="container-fluid footer-container">
     <!-- Modification des horaires d'ouverture par l'administrateur -->
 
     <?php
@@ -997,7 +1077,7 @@ if(isset($_SESSION['role'])):
 
 
 
-    <form method="POST" action="horaires.php">
+    <form method="POST" autocomplete="on" action="horaires.php">
 
       <div class="navbar sticky-top justify-content-center bg-danger">
 
@@ -1093,13 +1173,13 @@ if(isset($_SESSION['role'])):
       if (voitureAnnee >= rangeAnnee && voitureKilometrage <= rangeKilometrage && voiturePrix <= rangeDeprix) {
         // Affichage des voitures filtrès
         voiture.style.display = 'flex';
-        voiture.style = 'position: relative; min-height: 100%; height: 100%; ';
+        voiture.style = 'position: relative; height: 100%; ';
         
 
       } else {
         // Cacher le reste des voitures
-        
-        voiture.style = 'padding: ; position:absolute; visibility:collapse;';
+        voiture.style = 'padding:; visibility:collapse; position:absolute;';
+      
       }
     }
   }

@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Préparer et exécuter la requête SQL
-    $stmt = $conn->prepare("INSERT INTO Messages (title, name, email, number, text) VALUES (?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO messages (title, name, email, number, text) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sssss", $title, $name, $email, $number, $text);
 
     $result = $stmt->execute();

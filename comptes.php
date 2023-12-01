@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Préparer et exécuter la requête SQL
-    $stmt = $conn->prepare("INSERT INTO LoginDetails (email, password) VALUES (?, ?)");
+    $stmt = $conn->prepare("INSERT INTO logindetails (email, password) VALUES (?, ?)");
     $stmt->bind_param("ss", $email, $hashedPassword);
 
     $result = $stmt->execute();
