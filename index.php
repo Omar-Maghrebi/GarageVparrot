@@ -37,10 +37,12 @@ endif;
     .body {
       font-family: "Gill Sans", sans-serif;
       color: white;
+      background-color: #092945;
     }
 
     .footer {
       font-family: "Gill Sans", sans-serif;
+
      
     }
     .footer-container{
@@ -71,10 +73,13 @@ endif;
       text-align: center;
       color: white;
     }
-
-    .nav-link{
-      margin-left: 5px;
+    .logo{
+      margin-right: 5vw;
     }
+    .nav-item{
+      margin-right: 1vh;
+    }
+   
     .navbar {
       background-color: #092945;
     }
@@ -91,11 +96,11 @@ padding: 0;
 }
 
     .form-container{
-margin-left: 7vw;
-margin-right: 7vw;
+margin-left: 3vw;
+margin-right: 3vw;
 width: auto;
 background-color: white;
-padding: 1rem;
+padding: 1vw;
 }
 
     .indicateur {
@@ -114,24 +119,26 @@ padding: 1rem;
       flex: 1;
       display: flex;
       flex-wrap: wrap;
+      overflow: auto;
 
     }
 
     .tab-pane {
 
-  background-image: url('/garagevparrot.png');
+      background-image: url('/garagevparrot.png');
 
 
-  min-height: 100vh;
+      min-height: 100vh;
 
 
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
     .flex-item {
       padding: 1vh;
+      margin-top:1vh;
       width: 33vh;
       position: relative;
     }
@@ -160,6 +167,20 @@ padding: 1rem;
       max-height: 70vh;
 
     }
+    @media screen and (max-width: 900px) {
+      .carousel{
+      height: 100%;
+    }
+    .carousel-item{
+      object-fit: fill;
+      height: 100%;
+    }
+    .flex-item {
+      padding: 1vh;
+      width: 90vw;
+      position: relative;
+    }
+}
   </style>
 </head>
 
@@ -173,9 +194,9 @@ padding: 1rem;
       <!-- Navbar et navigation -->
       <div class="navbar sticky-top justify-content-center">
         <ul class="nav nav-pills justify-content-center"  id="myTab" role="tablist">
-          <li class="nav-item" role="presentation">
-
-            <img width="140" height="60" src="Icon1.png">
+          
+            <img class="logo" width="140" height="60" src="Icon1.png">
+            <li class="nav-item" role="presentation">
 
           </li>
           <li class="nav-item" role="presentation">
@@ -1061,7 +1082,7 @@ padding: 1rem;
 
   
 
-</body>
+
 <footer>
  
   <div class="container-fluid footer-container">
@@ -1185,5 +1206,6 @@ padding: 1rem;
   }
 
 </script>
+</body>
 
 </html>
