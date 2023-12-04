@@ -10,7 +10,7 @@ CREATE TABLE `avis` (
   `rating` int(1) NOT NULL,
   `valid` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 INSERT INTO `avis` VALUES
   (1, 'Omar MAGHREBI', 'Excellent!', 5, 1),
@@ -29,21 +29,26 @@ CREATE TABLE `cars` (
   `imageurl` varchar(1000) COLLATE utf8mb4_spanish_ci NOT NULL,
   `model` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `cars` VALUES
   (1, 30240, 2018, 232314, 'https://cdn.pixabay.com/photo/2019/10/01/22/59/tesla-car-4519524_1280.jpg', 'Tesla'),
   (3, 73000, 2019, 50522, 'https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Range Rover'),
   (4, 80050, 2022, 31042, 'https://images.pexels.com/photos/119435/pexels-photo-119435.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Jeep'),
-  (5, 15042, 2020, 150300, 'https://images.pexels.com/photos/38637/car-audi-auto-automotive-38637.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Audi');
-
+  (5, 15042, 2020, 150300, 'https://images.pexels.com/photos/38637/car-audi-auto-automotive-38637.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Audi'),
+(2, 45000, 2021, 18000, 'https://images.pexels.com/photos/951318/pexels-photo-951318.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'BMW'),
+(6, 62000, 2022, 25000, 'https://images.pexels.com/photos/93632/pexels-photo-93632.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Mercedes'),
+(7, 38000, 2019, 60000, 'https://images.pexels.com/photos/17507722/pexels-photo-17507722/free-photo-of-white-toyota-86-sports-car-parked-by-an-abandoned-factory-warehouse.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Toyota'),
+(8, 28000, 2020, 35000, 'https://images.pexels.com/photos/16387777/pexels-photo-16387777/free-photo-of-custom-honda-accord.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Honda'),
+(9, 51000, 2021, 28000, 'https://images.pexels.com/photos/17157308/pexels-photo-17157308/free-photo-of-ford-maverick-on-desert.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Ford'),
+(10, 67000, 2022, 20000, 'https://images.pexels.com/photos/5066933/pexels-photo-5066933.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Chevrolet');
 -- Table: horaires
 CREATE TABLE `horaires` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ouverture` varchar(5) COLLATE utf8mb4_spanish_ci NOT NULL,
   `fermeture` varchar(5) COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `horaires` VALUES (1, '07:15', '17:15');
 
@@ -54,7 +59,7 @@ CREATE TABLE `logindetails` (
   `password` varchar(1000) COLLATE utf8mb4_spanish_ci NOT NULL,
   `role` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT 'employe',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `logindetails` VALUES (117, 'vparrot@garage.fr', '$2y$10$5YC6rChSRSTzX6J/AgaUB.iNdL0UK4HhZqQ7OvtBtcHwGlb8j/qdi', 'admin');
 
@@ -67,7 +72,7 @@ CREATE TABLE `messages` (
   `text` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
   `title` varchar(200) COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `messages` VALUES
   (1, 'dsqdqs', 'dsqd@dqsd', 77446666, 'eazezaeaezaez', 'qdsdsq'),
@@ -83,7 +88,7 @@ CREATE TABLE `services` (
   `price` int(11) NOT NULL,
   `imageurl` varchar(1000) COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `services` VALUES
   (7, 'Vidange moteur', 30, 'Vidange et remplacement de huile et filtre moteur', 50, 'https://images.unsplash.com/photo-1635437536607-b8572f443763?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'),

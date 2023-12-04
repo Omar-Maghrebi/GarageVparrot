@@ -5,8 +5,8 @@ require_once "connection_bd.php";
 // Gestion de la requête POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Valider et filtrer les entrées utilisateur
-    $name = htmlspecialchars($_POST['name']);
-    $text = htmlspecialchars($_POST['text']);
+    $name = htmlspecialchars($_POST['name'], ENT_QUOTES, 'UTF-8');
+    $text = htmlspecialchars($_POST['text'], ENT_QUOTES, 'UTF-8');
     $rating = isset($_POST['rating']) ? intval($_POST['rating']) : 0;
 
     // Vérifier les champs vides ou invalides
@@ -23,13 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result) {
         // Insertion réussie
+        $_SESSION['error'] = 0;
         header('Location: index.php');
         exit;
     } else {
         // Échec de l'insertion
-        echo "Une erreur s'est produite. Veuillez réessayer ultérieurement.";
-        error_log("Erreur lors de l'ajout : " . $stmt->error);
+        $_SESSION['error'] = 1;
+        header('Location: index.php');
         exit;
     }
 }
 ?>
+
