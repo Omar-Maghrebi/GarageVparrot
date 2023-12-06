@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Préparer et exécuter la requête SQL
     $stmt = $conn->prepare("INSERT INTO services (type, time, text, price, imageurl) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssdss", $type, $time, $text, $price, $imageurl);
+    $stmt->bind_param("sisis", $type, $time, $text, $price, $imageurl);
 
     $result = $stmt->execute();
 

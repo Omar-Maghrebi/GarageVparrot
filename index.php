@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 
-
+require_once "connection_bd.php";
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -412,23 +412,23 @@ endif;
 
 
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link active btn btn-secondary text-light mobile " href="#top"
+                                    <button class="nav-link active btn btn-secondary text-light mobile " href="/home"
                                         id="home-tab" data-bs-toggle="pill" data-bs-target="#home" type="button"
                                         role="tab" aria-selected="true">Accueil</button>
                                 </li>
 
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link btn btn-secondary text-light mobile " href="#top"
+                                    <button class="nav-link btn btn-secondary text-light mobile " href="/menu2"
                                         id="menu2-tab" data-bs-toggle="pill" data-bs-target="#menu2" type="button"
                                         role="tab" aria-selected="false">Nos voitures</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link btn btn-secondary text-light mobile " href="#top"
+                                    <button class="nav-link btn btn-secondary text-light mobile " href="#menu3"
                                         id="menu3-tab" data-bs-toggle="pill" data-bs-target="#menu3" type="button"
                                         role="tab" aria-selected="false">Services</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link btn btn-secondary text-light mobile  " href="#top"
+                                    <button class="nav-link btn btn-secondary text-light mobile  " href="#menu6"
                                         id="menu6-tab" data-bs-toggle="pill" data-bs-target="#menu6" type="button"
                                         role="tab" aria-selected="false">Contact</button>
                                 </li>
@@ -443,7 +443,7 @@ endif;
 
                   ?>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link btn btn-secondary text-light mobile  " href="#top"
+                                    <button class="nav-link btn btn-secondary text-light mobile  " href="#menu7"
                                         id="menu7-tab" data-bs-toggle="pill" data-bs-target="#menu7" type="button"
                                         role="tab" aria-selected="false">Avis</button>
                                 </li>
@@ -456,7 +456,7 @@ endif;
 
                     ?>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link btn btn-secondary text-light mobile  " href="#top"
+                                    <button class="nav-link btn btn-secondary text-light mobile  " href="#menu4"
                                         id="menu4-tab" data-bs-toggle="pill" data-bs-target="#menu4" type="button"
                                         role="tab" aria-selected="false">Créer compte employé</button>
                                 </li>
@@ -479,7 +479,7 @@ endif;
               } else {
                 ?>
                                 <li class="nav-item " role="presentation">
-                                    <button class="nav-link btn btn btn-secondary text-light mobile " href="#top"
+                                    <button class="nav-link btn btn btn-secondary text-light mobile " href="#menu5"
                                         id="menu5-tab" data-bs-toggle="pill" data-bs-target="#menu5" type="button"
                                         role="tab" aria-selected="false">Se
                                         connecter</button>
@@ -504,23 +504,23 @@ endif;
 
 
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active btn btn-secondary text-light desktop" href="#top" id="home-tab"
+                    <button class="nav-link active btn btn-secondary text-light desktop" href="#home" id="home-tab"
                         data-bs-toggle="pill" data-bs-target="#home" type="button" role="tab"
                         aria-selected="true">Accueil</button>
                 </li>
 
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link btn btn-secondary text-light desktop " href="#top" id="menu2-tab"
+                    <button class="nav-link btn btn-secondary text-light desktop " href="#menu2" id="menu2-tab"
                         data-bs-toggle="pill" data-bs-target="#menu2" type="button" role="tab" aria-selected="false">Nos
                         voitures</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link btn btn-secondary text-light desktop" href="#top" id="menu3-tab"
+                    <button class="nav-link btn btn-secondary text-light desktop" href="#menu3" id="menu3-tab"
                         data-bs-toggle="pill" data-bs-target="#menu3" type="button" role="tab"
                         aria-selected="false">Services</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link btn btn-secondary text-light desktop " href="#top" id="menu6-tab"
+                    <button class="nav-link btn btn-secondary text-light desktop " href="#menu6" id="menu6-tab"
                         data-bs-toggle="pill" data-bs-target="#menu6" type="button" role="tab"
                         aria-selected="false">Contact</button>
                 </li>
@@ -536,7 +536,7 @@ endif;
         ?>
 
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link btn btn-secondary text-light desktop " href="#top" id="menu7-tab"
+                    <button class="nav-link btn btn-secondary text-light desktop " href="#menu7" id="menu7-tab"
                         data-bs-toggle="pill" data-bs-target="#menu7" type="button" role="tab"
                         aria-selected="false">Avis</button>
                 </li>
@@ -549,7 +549,7 @@ endif;
 
           ?>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link btn btn-secondary text-light  desktop" href="#top" id="menu4-tab"
+                    <button class="nav-link btn btn-secondary text-light  desktop" href="#menu4" id="menu4-tab"
                         data-bs-toggle="pill" data-bs-target="#menu4" type="button" role="tab"
                         aria-selected="false">Créer
                         compte employé</button>
@@ -709,7 +709,7 @@ endif;
                             <?php
               }
             endif;
-            require_once "connection_bd.php";
+           
 
 
             // Affichage des services
@@ -781,7 +781,7 @@ endif;
 
                         <?php
 
-          require_once "connection_bd.php";
+         
 
 
           // Affichage des avis
@@ -850,7 +850,7 @@ endif;
 
 
           ?>
-                    <form method="POST" autocomplete="on" action="voiture.php">
+                    <form method="POST" autocomplete="on" action="voitures.php">
                         <div class="navbar sticky-top justify-content-center bg-danger">
                             <input class="form-control" type="text" name="model" placeholder="Marque/Modèle" required>
                             <input class="form-control" type="number" name="date" placeholder="Année" required>
@@ -923,7 +923,7 @@ endif;
                         <div class="flex-fill">
                             <div class="flex-container justify-content-center" id="flexContainer">
                                 <?php
-              require_once "connection_bd.php";
+             
               $sql = "SELECT * FROM cars";
               $result = mysqli_query($conn, $sql);
 
@@ -1086,9 +1086,7 @@ endif;
 
             <div id="menu3" class="tab-pane fade" role="tabpanel">
                 <div class="container">
-                    <script>
-                    scrollToTop();
-                    </script>
+                   
                     <div class="d-flex justify-content-center">
                         <div class="flex-container justify-content-center" id="flexContainer">
                             <!-- creation de nouveaux services-->
@@ -1125,7 +1123,7 @@ endif;
 
             endif;
 
-            require_once "connection_bd.php";
+           
 
 
             // Affichage des services
@@ -1267,7 +1265,7 @@ endif;
 
                             <?php
 
-              require_once "connection_bd.php";
+             
 
 
 
@@ -1385,7 +1383,7 @@ endif;
 
                             <?php
 
-                require_once "connection_bd.php";
+               
 
 
                 // Affichage des avis
@@ -1501,7 +1499,7 @@ endif;
       endif;
 
 
-      require_once "connection_bd.php";
+     
 
 
       // Affichage des horaires
@@ -1614,6 +1612,7 @@ endif;
         }
         return null;
     }
+
     </script>
 </body>
 
